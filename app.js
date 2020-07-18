@@ -57,7 +57,21 @@ class UI {
 
   // getting bag buttons
   getBagButtons() {
-    const buttons = [...document.querySelectorAll("bag-btn")];
+    const buttons = [...document.querySelectorAll(".bag-btn")];
+    // console.log(buttons);
+    buttons.forEach(button => {
+      let id = button.dataset.id;
+      //   console.log(`Id is ${id}`);
+      let inCart = cart.find(item => item.id === id); // checking if the item is in cart.
+      if (inCart) {
+        button.innerText = "In Cart";
+        button.disabled = true; // cant press on it if it's already in cart.
+      } else {
+        button.addEventListener("click", event => {
+          console.log(event);
+        });
+      }
+    });
   }
 }
 
