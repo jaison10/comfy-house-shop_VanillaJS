@@ -2,6 +2,7 @@
 const cartBtn = document.querySelector(".cart-btn");
 const closeCartBtn = document.querySelector(".close-cart");
 const clearCartBtn = document.querySelector(".clear-cart");
+const cartDOM = document.querySelector(".cart");
 const cartOverlay = document.querySelector(".cart-overlay");
 const cartItems = document.querySelector(".cart-items");
 const cartTotal = document.querySelector(".cart-total");
@@ -10,6 +11,9 @@ const productsDOM = document.querySelector(".products-center");
 
 //cart
 let cart = [];
+
+//buttons
+let buttonsDOM = [];
 
 //getting the products
 
@@ -58,6 +62,7 @@ class UI {
   // getting bag buttons
   getBagButtons() {
     const buttons = [...document.querySelectorAll(".bag-btn")];
+    buttonsDOM = buttons;
     // console.log(buttons);
     buttons.forEach(button => {
       let id = button.dataset.id;
@@ -66,12 +71,60 @@ class UI {
       if (inCart) {
         button.innerText = "In Cart";
         button.disabled = true; // cant press on it if it's already in cart.
-      } else {
-        button.addEventListener("click", event => {
-          console.log(event);
-        });
       }
+      button.addEventListener("click", event => {
+        // console.log(event);
+        event.target.innerText = "in cart";
+        event.target.disabled = true;
+        //get product from products.
+        let cartItem = { ...Storage.getProduct(id), amount: 1 }; // amount is the count of no. of items added into cart.(same items)
+        // add product to cart.
+        cart = [...cart, cartItem];
+        //save product to local storage
+        Storage.saveCart(cart);
+        // set cart values - amount of items changing.
+        this.setCartValues(cart);
+        // display cart items
+        this.addCartItems(cartItem);
+        //show the cart
+        this.showCart();
+      });
     });
+  }
+
+  setCartValues(cart) {
+    let tempTotal = 0;
+    let itemsTotal = 0;
+    cart.map(item => {
+      tempTotal += item.price * item.amount; //increasing the amount
+      itemsTotal += item.amount; // increasing the count.
+    });
+    cartTotal.innerText = parseFloat(tempTotal.toFixed(2)); // toFixed() sets the number of decimal places.
+    cartItems.innerText = itemsTotal;
+    // console.log(`Total price is: ${tempTotal} and the count is ${itemsTotal}`);
+  }
+
+  addCartItems(item) {
+    const div = document.createElement("div");
+    div.classList.add("cart-item");
+    div.innerHTML = `
+            <img src="${item.image}" alt="product" />
+            <div>
+              <h4>${item.title}</h4>
+              <h5>$${item.price}</h5>
+              <span class="remove-item" data-id="${item.id}">remove</span>
+            </div>
+            <div>
+              <i class="fas fa-chevron-up" data-id="${item.id}"></i>
+              <p class="item-amount">${item.amount}</p>
+              <i class="fas fa-chevron-down" data-id="${item.id}"></i>
+            </div>`;
+    cartContent.appendChild(div);
+  }
+
+  showCart() {
+    cartOverlay.classList.add("transparentBcg");
+    cartDOM.classList.add("showCart");
   }
 }
 
@@ -79,6 +132,13 @@ class UI {
 class Storage {
   static saveProducts(products) {
     localStorage.setItem("products", JSON.stringify(products));
+  }
+  static getProduct(id) {
+    let products = JSON.parse(localStorage.getItem("products"));
+    return products.find(product => product.id === id);
+  }
+  static saveCart(cart) {
+    localStorage.setItem("cart", JSON.stringify(cart));
   }
 }
 
