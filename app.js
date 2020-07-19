@@ -36,7 +36,7 @@ class Products {
 
       let results = await fetch("products.json"); // getting data from local file
       let data = await results.json();
-      let products = contentful.items; // items is an array. Use "contentful" to get from contentful model. Use "data" for local data.
+      let products = data.items; // items is an array. Use "contentful" to get from contentful model. Use "data" for local data.
       products = products.map(item => {
         const { title, price } = item.fields;
         const { id } = item.sys;
