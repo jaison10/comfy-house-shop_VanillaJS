@@ -148,6 +148,35 @@ class UI {
       this.clearCart(); // here 'this' will be pointing to UI class. If it was called directly instead of ()=>{}, then it wud have pointed to button clicked.
     });
     //cart functionality.
+    cartContent.addEventListener("click", event => {
+      if (event.target.classList.contains("remove-item")) {
+        let removeItem = event.target;
+        let id = removeItem.dataset.id;
+        this.removeItem(id); // this removes from the storage, cart array and edits the button and all.
+        cartContent.removeChild(removeItem.parentElement.parentElement); // removing that item from DOM of cart.
+      } else if (event.target.classList.contains("fa-chevron-up")) {
+        let currentAmount = event.target;
+        let id = currentAmount.dataset.id;
+        let tempItem = cart.find(item => item.id === id);
+        tempItem.amount += 1;
+        Storage.saveCart(cart); // new amount added to cart
+        this.setCartValues(cart);
+        currentAmount.nextElementSibling.innerText = tempItem.amount; // updating amount shown
+      } else if (event.target.classList.contains("fa-chevron-down")) {
+        let currentAmount = event.target;
+        let id = currentAmount.dataset.id;
+        let tempItem = cart.find(item => item.id === id);
+        tempItem.amount -= 1;
+        if (tempItem.amount > 0) {
+          Storage.saveCart(cart); // new amount added to cart
+          this.setCartValues(cart);
+          currentAmount.previousElementSibling.innerText = tempItem.amount; // updating amount shown
+        } else {
+          cartContent.removeChild(currentAmount.parentElement.parentElement);
+          this.removeItem(id);
+        }
+      }
+    });
   }
   clearCart() {
     let cartItems = cart.map(item => item.id); // will give id of all the items present in cart.
