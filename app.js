@@ -1,3 +1,12 @@
+// contentful
+const client = contentful.createClient({
+  // this is the space ID. Space is the project folder
+  space: "kwm2knt4yln7",
+  // this is the access token for the space
+  accessToken: "SLERw4oHpdsoZU3XVE3nDCg6KiluupSSZwEcizBRZzM"
+});
+console.log(client);
+
 // variables
 const cartBtn = document.querySelector(".cart-btn");
 const closeCartBtn = document.querySelector(".close-cart");
@@ -20,9 +29,14 @@ let buttonsDOM = [];
 class Products {
   async getProducts() {
     try {
-      let results = await fetch("products.json");
+      let contentful = await client.getEntries({
+        // getting data from contentful model
+        content_type: "comfyHouseProducts" // bcz for one space there can be multiple content model. I want data from only this model.
+      });
+
+      let results = await fetch("products.json"); // getting data from local file
       let data = await results.json();
-      let products = data.items; // items is an array.
+      let products = contentful.items; // items is an array. Use "contentful" to get from contentful model. Use "data" for local data.
       products = products.map(item => {
         const { title, price } = item.fields;
         const { id } = item.sys;
