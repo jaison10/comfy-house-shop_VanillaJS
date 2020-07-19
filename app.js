@@ -49,7 +49,7 @@ class UI {
             />
             <button class="bag-btn" data-id="${item.id}">
               <i class="fas fa-shopping-cart"></i>
-              add to bag
+              add to cart
             </button>
           </div>
           <h3>${item.title}</h3>
@@ -142,6 +142,35 @@ class UI {
     cartOverlay.classList.remove("transparentBcg");
     cartDOM.classList.remove("showCart");
   }
+  cartLogic() {
+    // clear cart button work
+    clearCartBtn.addEventListener("click", () => {
+      this.clearCart(); // here 'this' will be pointing to UI class. If it was called directly instead of ()=>{}, then it wud have pointed to button clicked.
+    });
+    //cart functionality.
+  }
+  clearCart() {
+    let cartItems = cart.map(item => item.id); // will give id of all the items present in cart.
+    console.log(cartItems);
+    cartItems.forEach(id => this.removeItem(id));
+
+    // removing all the items from cart list HTML.
+    while (cartContent.children.length > 0) {
+      cartContent.removeChild(cartContent.children[0]);
+    }
+    this.hideCart();
+  }
+  removeItem(id) {
+    cart = cart.filter(item => item.id !== id); // update the cart only with the items that doesnt have the passed id.
+    this.setCartValues(cart); // updating the count and total price.
+    Storage.saveCart(cart); // this updates the local storage with the new cart items.
+    let button = this.getSingleButton(id); // getting button of this item from the buttons list.
+    button.disabled = false; // buttons to add into cart shud be enabled again.
+    button.innerHTML = `<i class="fas fa-shopping-cart"></i>Add to cart`;
+  }
+  getSingleButton(id) {
+    return buttonsDOM.find(button => button.dataset.id === id); //returning the button searhed for from the list.
+  }
 }
 
 //local storage
@@ -178,6 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then(() => {
       ui.getBagButtons(); // calling here because bag buttons can be accessed only after loading the products.
+      ui.cartLogic(); // clearing the cart.
     })
     .catch(e => {
       console.log(e);
