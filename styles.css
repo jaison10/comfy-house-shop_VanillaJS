@@ -141,7 +141,7 @@ body {
   transform: translateX(0);
 }
 .product{
-   border-radius:5px;
+   border-radius:30px;
 }
 .product-img {
   display: block;
