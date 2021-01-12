@@ -20,7 +20,10 @@ const productsDOM = document.querySelector(".products-center");
 
 //scrolling on clicking shopnow button
 document.getElementById("shopnow").addEventListener("click", ()=>{
-  window.scrollTo(0,500);
+  window.scroll({
+  top: 1000,
+  behavior: 'smooth'
+  });
 //   console.log("Has to scroll");
 });
 
