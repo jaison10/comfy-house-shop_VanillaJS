@@ -140,6 +140,9 @@ body {
 .img-container:hover .bag-btn {
   transform: translateX(0);
 }
+.product{
+   border-radius:5px;
+}
 .product-img {
   display: block;
   width: 100%;
