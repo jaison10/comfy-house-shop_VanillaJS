@@ -21,7 +21,7 @@ const productsDOM = document.querySelector(".products-center");
 //scrolling on clicking shopnow button
 document.getElementById("shopnow").addEventListener("click", ()=>{
   window.scroll({
-  top: 200,
+  top: 300,
   behavior: 'smooth'
   });
 //   console.log("Has to scroll");
