@@ -17,7 +17,7 @@ const cartItems = document.querySelector(".cart-items");
 const cartTotal = document.querySelector(".cart-total");
 const cartContent = document.querySelector(".cart-content");
 const productsDOM = document.querySelector(".products-center");
-
+const shopNow = document.getElementById("shopnow");
 //cart
 let cart = [];
 
@@ -25,7 +25,9 @@ let cart = [];
 let buttonsDOM = [];
 
 //getting the products
-
+shopNow.addEventListener("click", ()=>{
+  window.scrollTo(500,0);
+});
 class Products {
   async getProducts() {
     try {
