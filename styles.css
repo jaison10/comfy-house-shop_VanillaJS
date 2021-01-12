@@ -140,15 +140,13 @@ body {
 .img-container:hover .bag-btn {
   transform: translateX(0);
 }
-.product{
-   border-radius:30px;
-}
+
 .product-img {
   display: block;
   width: 100%;
   min-height: 12rem;
   transition: var(--mainTransition);
-/*   border-radius:30px; */
+  border-radius:8px;
 }
 .img-container:hover .product-img {
   opacity: 0.5;
