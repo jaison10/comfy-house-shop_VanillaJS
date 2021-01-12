@@ -26,7 +26,8 @@ let buttonsDOM = [];
 
 //getting the products
 shopNow.addEventListener("click", ()=>{
-  window.scrollTo(500,0);
+//   window.scrollTo(500,0);
+  console.log("Has to scroll");
 });
 class Products {
   async getProducts() {
