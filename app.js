@@ -258,6 +258,4 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(e);
     });
 });
-shopNow(){
-  window.scrollTo(500, 0);
-}
+
