@@ -17,9 +17,11 @@ const cartItems = document.querySelector(".cart-items");
 const cartTotal = document.querySelector(".cart-total");
 const cartContent = document.querySelector(".cart-content");
 const productsDOM = document.querySelector(".products-center");
- document.getElementById("shopnow").addEventListener("click", ()=>{
-//   window.scrollTo(500,0);
-  console.log("Has to scroll");
+
+//scrolling on clicking shopnow button
+document.getElementById("shopnow").addEventListener("click", ()=>{
+  window.scrollTo(500,0);
+//   console.log("Has to scroll");
 });
 
 //cart
