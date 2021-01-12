@@ -17,7 +17,11 @@ const cartItems = document.querySelector(".cart-items");
 const cartTotal = document.querySelector(".cart-total");
 const cartContent = document.querySelector(".cart-content");
 const productsDOM = document.querySelector(".products-center");
-const shopNow = document.getElementById("shopnow");
+ document.getElementById("shopnow").addEventListener("click", ()=>{
+//   window.scrollTo(500,0);
+  console.log("Has to scroll");
+});
+
 //cart
 let cart = [];
 
@@ -25,10 +29,10 @@ let cart = [];
 let buttonsDOM = [];
 
 //getting the products
-shopNow.addEventListener("click", ()=>{
-//   window.scrollTo(500,0);
-  console.log("Has to scroll");
-});
+// shopNow.addEventListener("click", ()=>{
+// //   window.scrollTo(500,0);
+//   console.log("Has to scroll");
+// });
 class Products {
   async getProducts() {
     try {
