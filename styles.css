@@ -90,6 +90,7 @@ body {
 .banner-btn:hover {
   background: transparent;
   color: var(--primaryColor);
+  border-radius:5px;
 }
 /* --------------- End of Hero ---------------- */
 /* --------------- Products ---------------- */
